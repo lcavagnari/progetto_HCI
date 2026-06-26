@@ -1,18 +1,34 @@
 # FIXES
 
-## Cell to replace — PCA function
+## 1 — PCA function
 
-Replace the entire `def pca(...)` cell with this:
+Return model alongside transformed data:
 
 ```python
-def pca(X, n_comp=20) -> np.array:
-    pca = PCA(n_components=n_comp)
-    return pca.fit_transform(X)
+def pca(X, n_comp=20):
+    model = PCA(n_components=n_comp)
+    X_pca = model.fit_transform(X)
+    return X_pca, model
 ```
 
-## Cell to move — data cache
+## 2 — New helper (add after PCA function)
 
-Take this cell and place it BEFORE the `# PREPROCESS ALL SEGMENTS` loop:
+```python
+def split_testtrain(X, Y, test_size=0.30, n_components=20):
+    Xtrain, Xtest, Ytrain, Ytest = train_test_split(
+        X, Y, test_size=test_size, random_state=42, stratify=Y
+    )
+    scaler = StandardScaler()
+    Xtrain = scaler.fit_transform(Xtrain)
+    Xtest = scaler.transform(Xtest)
+    Xtrain, pca_model = pca(Xtrain, n_components)
+    Xtest = pca_model.transform(Xtest)
+    return Xtrain, Xtest, Ytrain, Ytest
+```
+
+## 3 — Move caching cell
+
+Place this BEFORE preprocessing loop:
 
 ```python
 # CACHE ALL SUBJECT DATA (load .dat files ONCE)
@@ -31,9 +47,9 @@ for subject in range(1, 33):
 print(f"Cached {len(all_subject_data)} subjects successfully.")
 ```
 
-## Cell to replace — preprocessing loop
+## 4 — Preprocessing loop
 
-Replace the entire `# PREPROCESS ALL SEGMENTS` cell with this:
+Replace with:
 
 ```python
 # PREPROCESS ALL SEGMENTS — Feature Extraction + Split + Scale + PCA
@@ -85,18 +101,7 @@ for segment in range(4):
     X = np.array(X)
     Y = np.array(Y)
 
-    Xtrain, Xtest, Ytrain, Ytest = train_test_split(
-        X, Y, test_size=0.30, random_state=42, stratify=Y
-    )
-
-    scaler = StandardScaler()
-    Xtrain = scaler.fit_transform(Xtrain)
-    Xtest = scaler.transform(Xtest)
-
-    pca = PCA(n_components=20)
-    Xtrain = pca.fit_transform(Xtrain)
-    Xtest = pca.transform(Xtest)
-
+    Xtrain, Xtest, Ytrain, Ytest = split_testtrain(X, Y)
     segment_splits.append((Xtrain, Xtest, Ytrain, Ytest))
 
 print("Preprocessing complete. segment_splits has 4 entries.")
