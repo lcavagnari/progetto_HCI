@@ -84,6 +84,13 @@ Y = {
     "liking": []
 }
 
+scorers = {
+    "accuracy": "accuracy",
+    "precision": make_scorer(precision_score, zero_division=0),
+    "recall": make_scorer(recall_score, zero_division=0),
+    "f1": make_scorer(f1_score, zero_division=0),
+}
+
 
 def plot_classifier_metrics(df, title="Classifier Comparison") -> None:
     # Aggregated to ensure exactly 5 bars per chart are plotted per the criteria
@@ -112,6 +119,26 @@ def plot_classifier_metrics(df, title="Classifier Comparison") -> None:
     plt.ylabel("Score")
     plt.legend()
     plt.grid(True)
+    plt.show()
+    
+
+def plot_data_distribution(labels, label_names) -> None:
+    fig, axes = plt.subplots(4, figsize=(6, 8))
+    labels_data = np.vstack(labels)
+    
+    for i, label in enumerate(label_names):
+        axes[i].hist(
+            x=labels_data[:, i], 
+            bins=50,
+            density=True,
+            edgecolor="grey",
+            facecolor="orange"
+        )
+        axes[i].set_xlabel(label)
+        axes[i].set_ylabel("Count")
+        axes[i].set_title(f"{label} Distribution")
+
+    plt.tight_layout()
     plt.show()
 
 
@@ -241,31 +268,10 @@ def pre_process() -> None:
 
     print(f"\nPreprocessing complete.")
 
-"""
-def evaluate_metrics(clf, Features, Labels) -> tuple:
-    values1=cross_val_score(clf, Features, Labels, cv=10, scoring='accuracy')
-    values2=cross_val_score(clf, Features, Labels, cv=10, scoring='precision')
-    values3=cross_val_score(clf, Features, Labels, cv=10, scoring='recall')
-    values4=cross_val_score(clf, Features, Labels, cv=10, scoring='f1')
-    
-    accuracy=np.max(values1)
-    precision=np.max(values2)
-    recall=np.max(values3)
-    f1=np.max(values4)
-
-    return accuracy, precision, recall, f1
-"""
-
-scorers = {
-    "accuracy": "accuracy",
-    "precision": make_scorer(precision_score, zero_division=0),
-    "recall": make_scorer(recall_score, zero_division=0),
-    "f1": make_scorer(f1_score, zero_division=0),
-}
 
 def evaluate_metrics(clf, Features, Labels) -> tuple:
     scores = {
-        name: np.max(cross_val_score(clf, Features, Labels, cv=10, scoring=scorer))
+        name: np.median(cross_val_score(clf, Features, Labels, cv=10, scoring=scorer))
         for name, scorer in scorers.items()
     }
     return scores["accuracy"], scores["precision"], scores["recall"], scores["f1"]
@@ -314,7 +320,7 @@ def load_data() -> None:
     warnings = []
     for subject in range(1, 33):
         
-        filename = f"{target_dir}\\s{subject:02d}.dat"
+        filename = f"{target_dir}/s{subject:02d}.dat"
         try:
             # Open binary file
             with open(filename, "rb") as f:
@@ -346,13 +352,14 @@ if __name__ == "__main__":
     # Load data
     load_data()
     
+    plot_data_distribution(subjects_labels,
+        label_names=["Valence", "Arousal", "Dominance", "Liking"]
+    )
+
     print("\n\nStarting label and feature pre-processing",end="")
     
     # Preprocess
     pre_process()
-    
-    import sys
-    sys.exit(0)
     
     # Classifiers
     
