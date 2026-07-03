@@ -62,7 +62,7 @@ Expected format for each subject file (`.dat`, pickle):
 ├── Progetto_HCI.ipynb    # Main notebook (45 code cells)
 ├── export_python.py      # Pipeline exported as a script
 ├── requirements.txt      # Python dependencies
-├── AGENTS.md             # Operational notes for agents/developers
+├── install.sh            # Automated install script
 ├── DEAP_dataset.pdf      # Koelstra et al. (2012) DEAP paper
 └── LICENSE               # AGPL v3
 ```
