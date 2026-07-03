@@ -16,7 +16,8 @@
 
 <br>
 
-Final project for the **Human-Computer Interaction** course, Università degli Studi dell'Insubria.
+Final project for the **Human-Computer Interaction** course, Università degli Studi dell'Insubria. <br>
+Authors: refer to [autori.csv](./autori.csv)
 
 
 ## Abstract
