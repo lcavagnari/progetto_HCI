@@ -114,6 +114,6 @@ Distributed under the terms of the **GNU Affero General Public License v3.0** �
 
 ## References
 
-- Koelstra, S., Muhl, C., Soleymani, M., Lee, J.-S., Yazdani, A., Ebrahimi, T., Pun, T., Nijholt, A., & Patras, I. (2012). DEAP: A Database for Emotion Analysis Using Physiological Signals. *IEEE Transactions on Affective Computing*, 3(1), 18–31. ([included in this repo](./DEAP_dataset.pdf))
+- Koelstra, S., Muhl, C., Soleymani, M., Lee, J.-S., Yazdani, A., Ebrahimi, T., Pun, T., Nijholt, A., & Patras, I. (2012). DEAP: A Database for Emotion Analysis Using Physiological Signals. *IEEE Transactions on Affective Computing*, 3(1), 18–31.ird-party mirror, not the official DEAP distribution.
 - Doma, V., & Pirouz, M. (2020). A comparative analysis of machine learning methods for emotion recognition using EEG and peripheral physiological signals. *Journal of Big Data*, 7(1), 18.
 - manh123df. *DEAP Dataset* [Data set]. Kaggle. https://www.kaggle.com/datasets/manh123df/deap-dataset — third-party mirror, not the official DEAP distribution.
