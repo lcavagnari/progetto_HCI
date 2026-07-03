@@ -1,4 +1,4 @@
-# HCI Project — EEG-Based Emotion Recognition (DEAP Dataset)
+# EEG-Based Emotion Recognition Classification (DEAP Dataset)
 
 <div align="center">
   <a href="https://example.com">
