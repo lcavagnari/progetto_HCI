@@ -38,8 +38,7 @@ subjects_data = []
 global subject_labels
 subjects_labels = []
 
-global Y
-Y=[]
+
 
 Fs = 128 # Hz
 label_column = 0
@@ -55,6 +54,18 @@ results = []
 
 global  segment_splits
 segment_splits = []
+
+
+global X
+X = np.array([])
+
+global Y
+Y={
+    "valence": [],
+    "arousal": [],
+    "dominance": [],
+    "liking": []
+}
 
 global Xtrain
 global Xtest
@@ -76,12 +87,13 @@ segment_labels = [
     "45-60 s"
 ]
 
-X = np.array([])
-Y = {
-    "valence": [],
-    "arousal": [],
-    "dominance": [],
-    "liking": []
+
+
+scorers = {
+    "accuracy": "accuracy",
+    "precision": make_scorer(precision_score, zero_division=0),
+    "recall": make_scorer(recall_score, zero_division=0),
+    "f1": make_scorer(f1_score, zero_division=0),
 }
 
 scorers = {
