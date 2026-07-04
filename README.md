@@ -1,7 +1,7 @@
 # EEG-Based Emotion Recognition & Classification (DEAP Dataset)
 
 <div align="center">
-  <a href="https://drive.google.com/file/d/1R3Dd6jyciu8XIXcxuvS4UfbER1BIm0XA/view?usp=sharing">
+  <a href="https://colab.research.google.com/drive/1R3Dd6jyciu8XIXcxuvS4UfbER1BIm0XA">
     <img src="https://img.shields.io/badge/Run%20in%20Colab-orange?style=flat&logo=google-colab&logoColor=orange&label=%20Colab" alt="Run in Colab" />
   </a>
   &nbsp;&nbsp;&nbsp;
